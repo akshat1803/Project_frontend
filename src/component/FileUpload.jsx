@@ -38,9 +38,8 @@ function FileUpload() {
         {
           method: "POST",
           body: formData,
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
+          withCredentials: true
+          
         }
       );
 
