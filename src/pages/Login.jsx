@@ -19,6 +19,8 @@ function Login() {
       );
       const token = response.data.token;
       await login(token); 
+      console.log(token);
+      
       navigate("/dashboard"); 
     } catch (error) {
       console.error("Login failed:", error.response?.data?.message || "Unknown error");
