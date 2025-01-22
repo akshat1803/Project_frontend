@@ -9,7 +9,6 @@ function FileShare() {
   const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
-    // Fetch files when the component loads
     const fetchFiles = async () => {
       try {
         const { data } = await api.get("/api/files");
