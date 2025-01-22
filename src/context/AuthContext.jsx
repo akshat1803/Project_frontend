@@ -10,19 +10,18 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const initializeAuth = async () => {
-      const token = getToken();
-
-      if (token) {
-
-        try {
-          const response = await axios.get("https://project-backend-grqo.onrender.com/api/auth/me", {
-            withCredentials: true
-          });
-          setUser({ token, ...response.data });
-        } catch (error) {
-          console.error("Failed to validate token:", error.response?.data || error.message);
-          removeToken();
-        }
+      try {
+        const response = await axios.get("http://localhost:5000/api/auth/me", {
+          withCredentials: true,
+        });
+        // console.log("response", response);
+        setUser(response.data)
+      } catch (error) {
+        console.error(
+          "Failed to validate token:",
+          error.response?.data || error.message
+        );
+        // removeToken();
       }
       setLoading(false);
     };
@@ -31,18 +30,19 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = async (token) => {
-    console.log(token)
+    console.log(token);
     try {
       setToken(token);
-      const response = await axios.get("https://project-backend-grqo.onrender.com/api/auth/me", {
-        withCredentials: true
-
-
+      const response = await axios.get("http://localhost:5000/api/auth/me", {
+        withCredentials: true,
       });
 
       setUser({ token, ...response.data });
     } catch (error) {
-      console.error("Failed to fetch user details:", error.response?.data || error.message);
+      console.error(
+        "Failed to fetch user details:",
+        error.response?.data || error.message
+      );
       removeToken();
     }
   };

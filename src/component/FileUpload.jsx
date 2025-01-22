@@ -1,13 +1,16 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import io from "socket.io-client";
+import axios from "axios";
 
 const socket = io("https://project-backend-grqo.onrender.com");
 
 function FileUpload() {
   const [file, setFile] = useState(null);
-  const { user } = useContext(AuthContext); 
+  const { user } = useContext(AuthContext);
   const [isUploading, setIsUploading] = useState(false);
+
+  // console.log("user from context", user);
 
   const handleFileChange = (e) => setFile(e.target.files[0]);
 
@@ -22,7 +25,7 @@ function FileUpload() {
       return;
     }
 
-    if (!user?.token) {
+    if (!user) {
       alert("You must be logged in to upload files.");
       return;
     }
@@ -33,24 +36,14 @@ function FileUpload() {
     setIsUploading(true);
 
     try {
-      const response = await fetch(
+    const response = await axios.post(
         "https://project-backend-grqo.onrender.com/api/files/upload",
-        {
-          method: "POST",
-          body: formData,
-          withCredentials: true
-          
-        }
+        formData,
+        { withCredentials: true }
       );
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "File upload failed");
-      }
-
-      const data = await response.json();
       alert("File uploaded successfully!");
-      socket.emit("fileUploaded", data);
+      socket.emit("fileUploaded", response.data);
     } catch (err) {
       console.error("File upload error:", err.message);
       alert(err.message);

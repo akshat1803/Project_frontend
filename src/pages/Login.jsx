@@ -14,17 +14,26 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "https://project-backend-grqo.onrender.com/api/auth/login",
-        { email, password }
+        "http://localhost:5000/api/auth/login",
+        { email, password },
+        { withCredentials: true }
       );
-      const token = response.data.token;
-      await login(token); 
-      console.log(token);
-      
-      navigate("/dashboard"); 
+      // const token = response.data.token;
+      // await login(token);
+      // console.log(token);
+      if (
+        response.status === 200 &&
+        response.data.message === "Login Successful"
+      )
+        navigate("/dashboard");
     } catch (error) {
-      console.error("Login failed:", error.response?.data?.message || "Unknown error");
-      alert("Login failed: " + (error.response?.data?.message || "Unknown error"));
+      console.error(
+        "Login failed:",
+        error.response?.data?.message || "Unknown error"
+      );
+      alert(
+        "Login failed: " + (error.response?.data?.message || "Unknown error")
+      );
     }
   };
 
