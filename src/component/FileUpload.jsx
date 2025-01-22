@@ -3,7 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import io from "socket.io-client";
 import axios from "axios";
 
-const socket = io("http://localhost:5000");
+const socket = io("https://project-backend-grqo.onrender.com");
 
 function FileUpload() {
   const [file, setFile] = useState(null);
@@ -36,16 +36,8 @@ function FileUpload() {
     setIsUploading(true);
 
     try {
-      // const response = await fetch("http://localhost:5000/api/files/upload", {
-      //   method: "POST",
-      //   body: formData,
-      //   headers: {
-      //     Authorization: `Bearer ${user.token}`,
-      //   },
-      // });
-
-      const response = await axios.post(
-        "http://localhost:5000/api/files/upload",
+    const response = await axios.post(
+        "https://project-backend-grqo.onrender.com/api/files/upload",
         formData,
         { withCredentials: true }
       );
