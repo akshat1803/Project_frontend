@@ -3,7 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import io from "socket.io-client";
 import axios from "axios";
 
-const socket = io("http://localhost:5000");
+const socket = io(import.meta.env.VITE_BACKEND_URL);
 
 function FileUpload() {
   const [file, setFile] = useState(null);
@@ -36,18 +36,12 @@ function FileUpload() {
     setIsUploading(true);
 
     try {
-      // const response = await fetch("http://localhost:5000/api/files/upload", {
-      //   method: "POST",
-      //   body: formData,
-      //   headers: {
-      //     Authorization: `Bearer ${user.token}`,
-      //   },
-      // });
-
       const response = await axios.post(
         "http://localhost:5000/api/files/upload",
         formData,
-        { withCredentials: true }
+        {
+          withCredentials: true,
+        }
       );
 
       alert("File uploaded successfully!");
@@ -62,7 +56,7 @@ function FileUpload() {
 
   return (
     <div>
-      <input type="file" onChange={handleFileChange} />
+      <input type="file" onChange={handleFileChange} name="file" />
       <button onClick={handleFileUpload} disabled={isUploading}>
         {isUploading ? "Uploading..." : "Upload"}
       </button>

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import api from "../services/api";
 
-const socket = io("http://localhost:5000");
+const socket = io(import.meta.env.BACKEND_URL);
 
 function FileShare() {
   const [files, setFiles] = useState([]);
@@ -12,7 +12,7 @@ function FileShare() {
     // Fetch files when the component loads
     const fetchFiles = async () => {
       try {
-        const { data } = await api.get("/files");
+        const { data } = await api.get("/api/files");
         setFiles(data);
       } catch (err) {
         console.error("Failed to fetch files:", err);
