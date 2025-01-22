@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { getToken, setToken, removeToken } from "../utils/tokenUtils";
-import axios from "axios";
+import api from "../services/api";
 
 export const AuthContext = createContext();
 
@@ -11,11 +11,12 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const initializeAuth = async () => {
       try {
-        const response = await axios.get("https://project-frontend-l6rp.onrender.com/api/auth/me", {
+
+        const response = await api.get("/api/auth/me", {
           withCredentials: true,
         });
         // console.log("response", response);
-        setUser(response.data)
+        setUser(response.data);
       } catch (error) {
         console.error(
           "Failed to validate token:",
@@ -33,7 +34,8 @@ export function AuthProvider({ children }) {
     console.log(token);
     try {
       setToken(token);
-      const response = await axios.get("https://project-frontend-l6rp.onrender.com/api/auth/me", {
+
+      const response = await api.get("/api/auth/me", {
         withCredentials: true,
       });
 

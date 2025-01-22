@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../services/api";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -13,8 +13,9 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "https://project-frontend-l6rp.onrender.com/api/auth/login",
+
+      const response = await api.post(
+        "/api/auth/login",
         { email, password },
         { withCredentials: true }
       );

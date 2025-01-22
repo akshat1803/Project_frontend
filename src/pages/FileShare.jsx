@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import api from "../services/api";
 
-const socket = io("https://project-frontend-l6rp.onrender.com");
+const socket = io(import.meta.env.VITE_BACKEND_URL);
 
 function FileShare() {
   const [files, setFiles] = useState([]);
@@ -11,7 +11,7 @@ function FileShare() {
   useEffect(() => {
     const fetchFiles = async () => {
       try {
-        const { data } = await api.get("/files");
+        const { data } = await api.get("/api/files");
         setFiles(data);
       } catch (err) {
         console.error("Failed to fetch files:", err);
