@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import api from "../services/api";
 
-const socket = io(import.meta.env.BACKEND_URL);
+const socket = io(import.meta.env.VITE_BACKEND_URL);
 
 function FileShare() {
   const [files, setFiles] = useState([]);

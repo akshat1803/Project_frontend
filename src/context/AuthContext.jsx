@@ -11,6 +11,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const initializeAuth = async () => {
       try {
+
         const response = await api.get("/api/auth/me", {
           withCredentials: true,
         });
@@ -33,6 +34,7 @@ export function AuthProvider({ children }) {
     console.log(token);
     try {
       setToken(token);
+
       const response = await api.get("/api/auth/me", {
         withCredentials: true,
       });
