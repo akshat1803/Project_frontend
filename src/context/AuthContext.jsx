@@ -11,7 +11,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const initializeAuth = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/auth/me", {
+        const response = await axios.get("https://project-frontend-l6rp.onrender.com/api/auth/me", {
           withCredentials: true,
         });
         // console.log("response", response);
@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
     console.log(token);
     try {
       setToken(token);
-      const response = await axios.get("http://localhost:5000/api/auth/me", {
+      const response = await axios.get("https://project-frontend-l6rp.onrender.com/api/auth/me", {
         withCredentials: true,
       });
 

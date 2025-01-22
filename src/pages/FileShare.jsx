@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import api from "../services/api";
 
-const socket = io("http://localhost:5000");
+const socket = io("https://project-frontend-l6rp.onrender.com");
 
 function FileShare() {
   const [files, setFiles] = useState([]);
